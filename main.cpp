@@ -87,7 +87,7 @@ int main() {
 
 	while(running) {
 		cin.getline(in, 80);
-		if(strcmp(in, "END") == 0) {
+		if(strcmp(in, "QUIT") == 0) {
 			running = false;
 		}
 
