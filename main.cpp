@@ -54,6 +54,37 @@ void RecursiveAdd(Student* stud, Node* node) {
 	}
 }
 
+void RecursiveDelete(Node* node) {
+
+	if (node == nullptr) { return; }
+
+	RecursiveDelete(node->getNext());
+
+	delete node;
+}
+
+void RecursivePrint(Node* node) {
+	if (node == nullptr) { return; }
+
+	Student* stud = node->getStudent();
+
+	cout<< stud->getFirst()
+		<< " "
+		<< stud->getLast()
+		<< endl
+		<< "ID: "
+		<< stud->getId()
+		<< endl
+		<< "GPA: "
+		<< stud->getGpa()
+		<< endl;
+
+	RecursivePrint(node->getNext());
+}
+
+
+
+
 int main() {
 	
 	Node* head = nullptr;
@@ -70,8 +101,13 @@ int main() {
 		if(strcmp(in, "ADD") == 0) {
 	 		Add(head);
 	 	}
+		if(strcmp(in, "PRINT") == 0) {
+			RecursivePrint(head);
+		}
 	}
 	
+	RecursiveDelete(head);
+
 	return 0;
 
 }
