@@ -52,11 +52,11 @@ void RecursiveAdd(Student* stud, Node* node) {
 	}
 }
 
-void RecursiveDelete(Node* node) {
+void RecursiveDeallocate(Node* node) {
 
 	if (node == nullptr) { return; }
 
-	RecursiveDelete(node->getNext());
+	RecursiveDeallocate(node->getNext());
 
 	delete node;
 }
@@ -99,7 +99,7 @@ int main() {
 		}
 	}
 	
-	RecursiveDelete(head);
+	RecursiveDeallocate(head);
 
 	return 0;
 
