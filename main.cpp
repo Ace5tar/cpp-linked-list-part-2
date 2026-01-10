@@ -28,20 +28,18 @@ void Add(Node* &head) {
 	cin.ignore();
 
 
-	Student* stud = new Student(first, last, id, gpa);
+	Student* stud = new Student(first, last, gpa, id);
 
 	if(head == nullptr) {
 		head = new Node(stud);
 	} else {
 		RecursiveAdd(stud, head);
 	}
-	
-	cout<< "Student \"" 
-		<< stud->getFirst() 
-		<< " " 
-		<< stud->getLast() 
-		<< "\" added." 
-		<< endl;
+
+	printf("Student \"%s %s\" added.\n", 
+		stud->getFirst(),
+		stud->getLast());
+
 }
 
 void RecursiveAdd(Student* stud, Node* node) {
@@ -68,16 +66,11 @@ void RecursivePrint(Node* node) {
 
 	Student* stud = node->getStudent();
 
-	cout<< stud->getFirst()
-		<< " "
-		<< stud->getLast()
-		<< endl
-		<< "ID: "
-		<< stud->getId()
-		<< endl
-		<< "GPA: "
-		<< stud->getGpa()
-		<< endl;
+	printf("%s %s\nID: %d\nGPA: %.2f\n",
+		stud->getFirst(),
+		stud->getLast(),
+		stud->getId(),
+		stud->getGpa());
 
 	RecursivePrint(node->getNext());
 }
