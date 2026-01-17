@@ -5,8 +5,19 @@
 
 using namespace std;
 
-void RecursiveAdd(Student* stud, Node* node);
+// Recursive add function 
+// loops over list until end or next id is greater then the current
+void RecursiveAdd(Student* stud, Node* node) {
+	if (node->getNext() == nullptr || node->getNext()->getStudent()->getId() > stud->getId()) {
+		Node* newNode = new Node(stud);
+		newNode->setNext(node->getNext());
+		node->setNext(newNode);
+	} else {
+		RecursiveAdd(stud, node->getNext());
+	}
+}
 
+// Add student function
 void Add(Node* &head) {
 
 	char* first = new char[80];
@@ -42,16 +53,7 @@ void Add(Node* &head) {
 
 }
 
-void RecursiveAdd(Student* stud, Node* node) {
-	if (node->getNext() == nullptr || node->getNext()->getStudent()->getId() > stud->getId()) {
-		Node* newNode = new Node(stud);
-		newNode->setNext(node->getNext());
-		node->setNext(newNode);
-	} else {
-		RecursiveAdd(stud, node->getNext());
-	}
-}
-
+// Recursively delete each node
 void RecursiveDeallocate(Node* node) {
 
 	if (node == nullptr) { return; }
@@ -61,6 +63,7 @@ void RecursiveDeallocate(Node* node) {
 	delete node;
 }
 
+// Iterate over list and print each node
 void RecursivePrint(Node* node) {
 	if (node == nullptr) { return; }
 
@@ -75,6 +78,7 @@ void RecursivePrint(Node* node) {
 	RecursivePrint(node->getNext());
 }
 
+// If this nodes id = id then delete it
 Node* RecursiveDelete(Node* node, int id) {
 	if (node == nullptr) { return nullptr; }
 	if (node->getStudent()->getId() == id) {
@@ -89,6 +93,8 @@ Node* RecursiveDelete(Node* node, int id) {
 
 	}
 
+// Prompt user for id to delete
+// returns a node to set for the new head node
 Node* Delete(Node* head) {
 	
 	int id;
@@ -100,6 +106,7 @@ Node* Delete(Node* head) {
 
 	}
 
+// Loop over each node and update an average each time
 double RecursiveAverage(Node* node, double curAvg, int nodeCount) {
 	if (node == nullptr) { return curAvg; }
 
@@ -108,6 +115,7 @@ double RecursiveAverage(Node* node, double curAvg, int nodeCount) {
 	return RecursiveAverage(node->getNext(), newAvg, nodeCount + 1);
 }
 
+// Print the average gpa of every student
 void PrintAverage(Node* head) {
 
 	if (head == nullptr) { printf("List empty!\n");}
