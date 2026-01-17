@@ -75,6 +75,46 @@ void RecursivePrint(Node* node) {
 	RecursivePrint(node->getNext());
 }
 
+Node* RecursiveDelete(Node* node, int id) {
+	if (node == nullptr) { return nullptr; }
+	if (node->getStudent()->getId() == id) {
+		Node* newNext = node->getNext();
+		delete node;
+		return newNext;
+	}
+	
+	node->setNext(RecursiveDelete(node->getNext(), id));
+
+	return node;
+
+	}
+
+Node* Delete(Node* head) {
+	
+	int id;
+	cout << "ID: ";
+	cin >> id;
+	cin.ignore();
+
+	return RecursiveDelete(head, id);
+
+	}
+
+double RecursiveAverage(Node* node, double curAvg, int nodeCount) {
+	if (node == nullptr) { return curAvg; }
+
+	double newAvg = (((curAvg * (nodeCount - 1)) + node->getStudent()->getGpa()) / nodeCount);
+
+	return RecursiveAverage(node->getNext(), newAvg, nodeCount + 1);
+}
+
+void PrintAverage(Node* head) {
+
+	if (head == nullptr) { printf("List empty!\n");}
+
+	printf("Average GPA: %2.f\n", RecursiveAverage(head, 0, 1));
+}
+
 
 
 
@@ -96,6 +136,12 @@ int main() {
 	 	}
 		if(strcmp(in, "PRINT") == 0) {
 			RecursivePrint(head);
+		}
+		if(strcmp(in, "DELETE") == 0) {
+			head = Delete(head);
+		}
+		if(strcmp(in, "AVERAGE") == 0) {
+			PrintAverage(head);
 		}
 	}
 	
